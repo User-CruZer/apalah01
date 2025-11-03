@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             'role' => '1',
             'status' => 1,
             'hp' => '0812345678901',
-            'password' => bcrypt('P@55word'),
+            'password' => bcrypt('admin123'),
         ]);
 
         #untuk record berikutnya silahkan, beri nilai berbeda pada nilai: nama, email, hp dengan nilai masing-masing anggota kelompok
@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'role' => '0',
             'status' => 1,
             'hp' => '081234567892',
-            'password' => bcrypt('P@55word'),
+            'password' => bcrypt('admin123'),
         ]);
     }
 }
