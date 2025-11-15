@@ -121,12 +121,19 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if (Auth::user()->foto)
+                                <img src="{{ asset('storage/img-user/' . Auth::user()->foto) }}" alt="user" class="rounded-circle" width="31">
+                                @else
+                                <img src="{{ asset('storage/img-user/img-default.jpg') }}" alt="user" class="rounded-circle" width="31">
+                                @endif
+                            </a>
+
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> Profil Saya</a>
+                                <a class="dropdown-item" href="{{ route('backend.user.edit', Auth::user()->id) }}"><i class="ti-user m-r-5 m-l-5"></i> Profil Saya</a>
+
                                 <a class="dropdown-item" href="" onclick="event.preventDefault(); document.getElementById('keluar-app').submit();"><i class="fa fa-power-off m-r-5 m-l-5"></i> Keluar</a>
                                 <div class="dropdown-divider"></div>
-
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -255,6 +262,46 @@
         @csrf
     </form>
     <!-- form keluar app end -->
+
+    <!-- sweetalert -->
+    <script src="{{ asset('sweetalert/sweetalert2.all.min.js') }}"></script>
+    <!-- sweetalert End -->
+
+    <!-- konfirmasi success-->
+    @if (session('success')) <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: "{{ session('success') }}"
+        });
+    </script>
+    @endif
+    <!-- konfirmasi success End-->
+
+    <script type="text/javascript">
+        //Konfirmasi delete 
+        $('.show_confirm').click(function(event) {
+            var form = $(this).closest("form");
+            var konfdelete = $(this).data("konf-delete");
+            event.preventDefault();
+            Swal.fire({
+                title: 'Konfirmasi Hapus Data?',
+                html: "Data yang dihapus <strong>" + konfdelete + "</strong> tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, dihapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success').then(() => {
+                        form.submit();
+                    });
+                }
+            });
+        });
+    </script>
 
 </body>
 
