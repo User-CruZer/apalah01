@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Kategori;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -30,6 +32,22 @@ class DatabaseSeeder extends Seeder
             'status' => 1,
             'hp' => '081234567892',
             'password' => bcrypt('admin123'),
+        ]);
+
+        Kategori::create([
+            "nama_kategori" => "Brownies",
+        ]);
+        Kategori::create([
+            "nama_kategori" => "combro",
+        ]);
+        Kategori::create([
+            "nama_kategori" => "Dawet",
+        ]);
+        Kategori::create([
+            "nama_kategori" => "Mochi",
+        ]);
+        Kategori::create([
+            "nama_kategori" => "wingko",
         ]);
     }
 }
